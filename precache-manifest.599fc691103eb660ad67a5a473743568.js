@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "03a7567e70b7415491ecc7340602fc42",
+    "revision": "65ffc5d2e56fdba36466baa88d3c40b3",
     "url": "/SPA-challenge/index.html"
   },
   {
-    "revision": "b6d38fcd73fd9a9f94f5",
+    "revision": "2ddb082065396f2bc385",
     "url": "/SPA-challenge/static/css/main.54e6a6a9.chunk.css"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/SPA-challenge/static/js/2.43b890ac.chunk.js"
   },
   {
-    "revision": "b6d38fcd73fd9a9f94f5",
-    "url": "/SPA-challenge/static/js/main.8c814b8d.chunk.js"
+    "revision": "2ddb082065396f2bc385",
+    "url": "/SPA-challenge/static/js/main.5595226f.chunk.js"
   },
   {
     "revision": "2b510a685656161d0285",
