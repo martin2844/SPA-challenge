@@ -36,7 +36,7 @@ function App() {
   })
 
   //destructure values
-  const {title, subtitle, text, image, id, index} = newItem;
+  const {title, subtitle, text, image, index} = newItem;
   
 
  
@@ -161,10 +161,19 @@ console.log(newItem);
 //toggler to show the form to add new Item
 function formShow() {
   toggle ? setToggle(false) : setToggle(true);
+  setCardEdit(false);
+  setNewItem({
+    title: '',
+    subtitle: '',
+    text:'',
+    image: ''
+  });
+
 }
 
 // function for setting state of the new Item to add.
 const onChange = e => {setNewItem({...newItem, [e.target.name]: e.target.value })}
+
 
 
 // function for submiting the new item to add.
@@ -191,18 +200,26 @@ const onSubmit = e => {
 
 
   } else {
-
+    let randomNumber = Math.floor(Math.random()*10);
+    let imageNumber = 'https://unsplash.it/150/200?image=' + randomNumber
     const itemToPush = {
 
       title: title,
       subtitle: subtitle,
       text: text,
-      image: image || './images/lotion.jpg',
+      image: imageNumber || './images/lotion.jpg',
       id: nextId()
   
     }
   
     setObjects([...objects, itemToPush]);
+    setNewItem({
+      title: '',
+      subtitle: '',
+      text:'',
+      image: ''
+    });
+    setToggle(true);
   
 
   }
@@ -217,6 +234,12 @@ function reducer(state, action) {
   switch (action.type) {
     case "DELETE": {
       setObjects(action.payload);
+      setNewItem({
+        title: '',
+        subtitle: '',
+        text:'',
+        image: ''
+      });
       break;
     }
     case "EDIT": {
@@ -237,12 +260,7 @@ function reducer(state, action) {
     });
     setToggle(true);
     setCardEdit(false);
-    
-    }
-    case "UPDATE1": {
-      return {
-        ...state
-      }
+    break;
     }
     default:
       throw new Error("Bad Action Type")
@@ -256,10 +274,12 @@ console.log(state)
 
   return (
     <div className="App">
+
       <BootstrapNavbar/>
       <Container style={containerStyle}> 
 
         <h1>Welcome to SPA app</h1>
+        <p className='main-subtitle'>Proudly done on react.</p>
         <p>There are currently {objects.length} items</p>
         <Button color='success' onClick={() => formShow()}> Add Item</Button>
 
@@ -279,6 +299,9 @@ console.log(state)
       <FormGroup>
       <Label for="Description">Description</Label>
         <Input onChange={e => onChange(e)}  value={text}  type="Description" name="text" id="Description" />
+        </FormGroup>
+        <FormGroup>
+          <Input type='file' name='image'/>
         </FormGroup>
       </Form>
       <Button className='card-buttons' color={cardEdit ? 'warning' : 'primary' } onClick={e => onSubmit(e)}>{cardEdit ? 'Update' : 'Submit' }</Button>
