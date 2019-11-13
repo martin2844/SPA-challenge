@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useReducer} from 'react';
 import {Container, Button, Form, FormGroup, Label, Input} from 'reactstrap';
 
 //delete handling
@@ -24,6 +24,7 @@ function App() {
 
 
   const [toggle, setToggle] = useState(true);
+  const [cardEdit, setCardEdit] = useState(false);
 
   
 
@@ -33,8 +34,11 @@ function App() {
     text:'',
     image: ''
   })
-  const {title, subtitle, text, image} = newItem;
+
+  //destructure values
+  const {title, subtitle, text, image, id, index} = newItem;
   
+
  
 
   //just a padding object for main container
@@ -110,25 +114,42 @@ useEffect(() => {
 //map of items array to show on container. Passes the items properties as props to the Card component
 const cards = objects.map((card) => {
   
-  function handleChildClick() {
-    console.log(card.id);
+  function handleDelete() {
+    
   let inmutable = objects;
   _.remove(inmutable, {
     id: card.id
   })
   console.log(inmutable);
 
+  dispatch({type: 'DELETE', payload: inmutable });
+}
+
+function handleEdit(){
+ 
+  let arrayIndex = _.findIndex(objects, {id: card.id});
+
+  let cardContent = {
+    title: card.title,
+    subtitle: card.subtitle,
+    text: card.text,
+    image: card.image,
+    id: card.id,
+    index: arrayIndex
+    }
 
 
 
-  
+ console.log(arrayIndex);
 
-  }
+dispatch({type: 'EDIT', payload: cardContent });
+
+}
   
 
  return (
    
-    <Card key={card.id} onClick={handleChildClick} title={card.title} subtitle={card.subtitle} image={card.image} text={card.text}/>
+    <Card key={card.id} onClickEdit={handleEdit} onClickDelete={handleDelete} title={card.title} subtitle={card.subtitle} image={card.image} text={card.text}/>
   )
 
 })
@@ -150,29 +171,79 @@ const onChange = e => {setNewItem({...newItem, [e.target.name]: e.target.value }
 const onSubmit = e => {
   e.preventDefault();
   //destructure state
- 
+  
+  if(cardEdit) {
 
-  const itemToPush = {
+    
 
-    title: title,
-    subtitle: subtitle,
-    text: text,
-    image: image || './images/lotion.jpg',
-    id: nextId()
+    let inmutable = objects;
+
+    
+
+    inmutable[index].title = title;
+    inmutable[index].subtitle = subtitle;
+    inmutable[index].text = text;
+    inmutable[index].image = image;
+
+    console.log(inmutable);
+
+    dispatch({type: 'UPDATE', payload: inmutable });
+
+
+  } else {
+
+    const itemToPush = {
+
+      title: title,
+      subtitle: subtitle,
+      text: text,
+      image: image || './images/lotion.jpg',
+      id: nextId()
+  
+    }
+  
+    setObjects([...objects, itemToPush]);
+  
 
   }
-
-  console.log('click')
-
-  setObjects([...objects, itemToPush]);
+ 
 
   
 
 }
 
 
+function reducer(state, action) {
+  switch (action.type) {
+    case "DELETE": {
+      setObjects(action.payload);
+      break;
+    }
+    case "EDIT": {
+      console.log(action.payload);
+      setNewItem(action.payload);
+      setToggle(false);
+      setCardEdit(true);
+      break;
+  }
+    case "UPDATE": {
+     console.log(action.payload);
+     setObjects(action.payload);
+    }
+    case "UPDATE1": {
+      return {
+        ...state
+      }
+    }
+    default:
+      throw new Error("Bad Action Type")
+      
+  }
+}
 
+const [state, dispatch] = useReducer(reducer, objects);
 
+console.log(state)
 
   return (
     <div className="App">
@@ -201,14 +272,14 @@ const onSubmit = e => {
         <Input onChange={e => onChange(e)}  value={text}  type="Description" name="text" id="Description" />
         </FormGroup>
       </Form>
-      <Button className='card-buttons' color='primary' onClick={e => onSubmit(e)}> Submit </Button>
+      <Button className='card-buttons' color={cardEdit ? 'warning' : 'primary' } onClick={e => onSubmit(e)}>{cardEdit ? 'Update' : 'Submit' }</Button>
       <Button className='card-buttons' color='danger' onClick={() => formShow()}>Close </Button>
         </Container>
-
+        <Container>
         <div className='card-main wrap'>
         {cards}
         </div>
-
+        </Container>
       </Container>
     
     </div>

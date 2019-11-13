@@ -21,10 +21,10 @@ const Example = (props) => {
             <p className='card-subtitle'>{props.subtitle}</p>
             <p className='card-desc'>{props.text}</p>
             
-            <Button className='card-buttons' color="info">Edit</Button>
+            <Button onClick={props.onClickEdit} className='card-buttons' color="info">Edit</Button>
            
             
-            <Button onClick={props.onClick} className='card-buttons' color="danger">Delete</Button>
+            <Button onClick={props.onClickDelete} className='card-buttons' color="danger">Delete</Button>
             
             </div>
             </div>
