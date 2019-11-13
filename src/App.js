@@ -229,6 +229,15 @@ function reducer(state, action) {
     case "UPDATE": {
      console.log(action.payload);
      setObjects(action.payload);
+     setNewItem({
+      title: '',
+      subtitle: '',
+      text:'',
+      image: ''
+    });
+    setToggle(true);
+    setCardEdit(false);
+    
     }
     case "UPDATE1": {
       return {
