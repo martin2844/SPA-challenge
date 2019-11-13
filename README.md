@@ -1,9 +1,39 @@
 # SINGLE PAGE APPLICATION CHALLENGE
 
+
+### FIRST OF ALL
+check it out live here: https://martin2844.github.io/SPA-challenge/
+
+
+___
+
+
 ## How to run the application in your localhost.
 
+in your terminal, first cd to the destination you wish to install the repo.
+then:
 
+```
+git clone https://github.com/martin2844/SPA-challenge.git
 
+```
+
+after that, simply 
+
+``` 
+npm i
+
+```
+
+and once its done installing packages,
+
+``` 
+npm run start.
+
+```
+
+Of course, you need NPM installed, ie. NodeJS. To install go to https://nodejs.org/en/
+___
 ## This is the assignment
 
 
@@ -27,26 +57,19 @@ backend/language (if needed).
 
 ___
 
-
-1. Have to solve this.
-2. Done
-3. Done
-4. Need to add image, from imgur
-5. done
-6. done
-
-
-___ 
-
 ## Ran out of time to continue this challenge, but these are the steps I would follow to finish it up:
 
-For 1. I would implement a simple npm package: React-DND
+For noº1. I would implement a simple npm package: React-DND
 https://github.com/react-dnd/react-dnd.  
-Of course this would mean making state handling more complex, since drag and drop would have to "edit" the array index which is currently sorting out the cards.
-For 4. There are a couple of ways to solve it,
+Of course this would mean making state handling more complex, since drag and drop would have to "edit" the array index which is currently sorting out the cards.  
+  
+
+For noº4. There are a couple of ways to solve it,
 One option would be creating a REST backend in NODE, which accepts images, after making an axios Post request to the backend, we would get an image url, which can be added to state.
 Another way is rewriting the whole thing and doing a MERN stack application, its not what I wanted to do.
-Originally I thought that this is a simple application, and can all be resolved via CSR(client side rendering).
+Originally I thought that this is a simple application, and can all be resolved via CSR(client side rendering).   
+  
+
 Finally, my choice which I which I ran out of time to implement would be uploading to imgurs api. Of course this implies having an API key, and if Testers want to test the app, they would have to make an account, get their own key and secret of course.
 One last possibility was to convert images into base64 strings, and hold that in clients local Storage. Not good, but not terrible. 3.6
 
@@ -54,9 +77,9 @@ ___
 
 ## My solutions for things that are done.
 
-2. Items are a simple array of objects. I did not want to include a Database because I was eager to see if I could manage all the data via localStorage. So putting a counter is just a matter of doing array.length.
-3. CRUD operations, CREATE, READ, UPDATE and DELETE are all hanlded via State Hooks. A combination of useState, useEffect and useReducers were chosen to manage simple app state.
-4. Item is added simply by pushing to the array. Of course since the array is handled in state we cant really push, we make a new copy of the array with the new Item, and push that new array into state. This is done via the onSubmit Function. Really simple matter of pushing the item to state.
+1. Items are a simple array of objects. I did not want to include a Database because I was eager to see if I could manage all the data via localStorage. So putting a counter is just a matter of doing array.length.
+2. CRUD operations, CREATE, READ, UPDATE and DELETE are all hanlded via State Hooks. A combination of useState, useEffect and useReducers were chosen to manage simple app state.
+3. Item is added simply by pushing to the array. Of course since the array is handled in state we cant really push, we make a new copy of the array with the new Item, and push that new array into state. This is done via the onSubmit Function. Really simple matter of pushing the item to state.
 Update and Delete are a different matter. Using hooks, we would want to have the operations of delete and Update reflect state change instantly so I decided to use a simple reducer with a couple of actions.
 Creating or Updating an item is done via the same form, so changes are made on the DOM whether user chose to edit or add a New item. 
 5. This is explained before. Its instant

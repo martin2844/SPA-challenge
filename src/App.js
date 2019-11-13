@@ -281,7 +281,7 @@ console.log(state)
         <h1>Welcome to SPA app</h1>
         <p className='main-subtitle'>Proudly done on react.</p>
         <p>There are currently {objects.length} items</p>
-        <Button color='success' onClick={() => formShow()}> Add Item</Button>
+        <Button style={toggle ? shown : hidden} color='success' onClick={() => formShow()}> Add Item</Button>
 
         {/* form container */}
         <Container style={toggle ? hidden : shown}>
